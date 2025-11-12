@@ -11,7 +11,7 @@ import {
   RemoveUserPaymentSecretKey,
   updateCreditsAndTotalSpent,
 } from "@/app/_Serveractions";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/simpleAuth";
 import { UserInfoContext } from "@/context/UserInfoContext";
 
 const SuccessPage = () => {
@@ -130,7 +130,7 @@ const SuccessPage = () => {
             ⚡ Payment Succefull ⚡
           </h2>
           <h2 className="font-bold text-2xl">
-            Thanks for buying Credits for Mock Interviews
+            Thanks for buying Credits for NeuroSync Mock Interviews
           </h2>
         </div>
       </div>

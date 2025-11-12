@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton } from "@/lib/simpleAuth";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";

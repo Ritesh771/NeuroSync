@@ -5,7 +5,7 @@ export default [
     cost: 0,
     offering: [
       {
-        value: "✔️ Create 3 Free Mock Interview",
+  value: "✔️ Create 3 Free NeuroSync Mock Interviews",
       },
       {
         value: "✔️ Unlimited Retake Interview",

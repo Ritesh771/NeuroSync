@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { db } from "@/utils/db";
-import { MOCKInterview } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+// import { db } from "@/utils/db";
+// import { MOCKInterview } from "@/utils/schema";
+// import { eq } from "drizzle-orm";
 import { Lightbulb, Rocket, WebcamIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -20,13 +20,12 @@ const Interview = ({ params }) => {
   // Get Interview Details by mockId/Interview ID
   const GetInterviewDetails = async () => {
     try {
-      const result = await db
-        .select()
-        .from(MOCKInterview)
-        .where(eq(MOCKInterview.mockId, params.interviewId));
-
-      // console.log(result);
-      setInterviewData(result[0]);
+      const response = await fetch(`/api/interview-details?mockId=${params.interviewId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch interview details');
+      }
+      const data = await response.json();
+      setInterviewData(data.interview);
     } catch (error) {
       console.error("Error Fetching UserInterview Details: ", error);
     }
@@ -62,7 +61,7 @@ const Interview = ({ params }) => {
             </h2>
             <h2 className="mt-3 text-yellow-500">
               Enable Video Web Cam and Microphone to Start your Al Generated
-              Mock Interview, It Has 5 question which you can answer and at the
+              NeuroSync Mock Interview, It Has 5 questions which you can answer and at the
               last you will get the report on the basis of your answer. NOTE: We
               never record/store your video due to users privacy. You can
               disable Web cam access at any time by clicking the icon located

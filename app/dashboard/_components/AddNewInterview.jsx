@@ -13,12 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { chatSession } from "@/utils/GeminiAIModal";
 import { Loader } from "lucide-react";
-import { db } from "@/utils/db";
-import { MOCKInterview } from "@/utils/schema";
+// import { db } from "@/utils/db";
+// import { MOCKInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/simpleAuth";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import { CreateInterview, UpdateUserCredits, UpdateCreditsUsed } from "@/app/_Serveractions";
 import AddNew from "@/public/AddNew.json";
 import Lottie from "lottie-react";
 import { UserInfoContext } from "@/context/UserInfoContext";
@@ -33,7 +34,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { UpdateCreditsUsed, UpdateUserCredits } from "@/app/_Serveractions";
 
 const AddNewInterview = () => {
   const { userInfo, setUserInfo } = useContext(UserInfoContext);
@@ -68,18 +68,17 @@ const AddNewInterview = () => {
 
       try {
         if (MockJsonResp) {
-          const resp = await db
-            .insert(MOCKInterview)
-            .values({
-              mockId: uuidv4(),
-              jsonMockResp: MockJsonResp,
-              jobPosition: jobPosition,
-              jobDescription: jobDescription,
-              jobExperience: jobExperience,
-              createdBy: user?.primaryEmailAddress?.emailAddress,
-              createdAt: moment().format("DD-MM-YYYY"),
-            })
-            .returning({ mockId: MOCKInterview.mockId });
+          const interviewData = {
+            mockId: uuidv4(),
+            jsonMockResp: MockJsonResp,
+            jobPosition: jobPosition,
+            jobDescription: jobDescription,
+            jobExperience: jobExperience,
+            createdBy: user?.primaryEmailAddress?.emailAddress,
+            createdAt: moment().format("DD-MM-YYYY"),
+          };
+
+          const resp = await CreateInterview(interviewData);
 
           console.log("Inserted ID: ", resp);
 

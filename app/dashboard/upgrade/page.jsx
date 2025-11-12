@@ -2,7 +2,7 @@
 import { UpdateUserPaymentSecretKey } from "@/app/_Serveractions";
 import { UserInfoContext } from "@/context/UserInfoContext";
 import planData from "@/utils/planData";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/simpleAuth";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { Loader } from "lucide-react";

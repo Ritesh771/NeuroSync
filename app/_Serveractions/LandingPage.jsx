@@ -2,7 +2,7 @@ import React from "react";
 import { HiSparkles } from "react-icons/hi2";
 import { IoChatboxEllipses } from "react-icons/io5";
 import { GiBrain } from "react-icons/gi";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@/lib/simpleAuth";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -57,7 +57,7 @@ function LandingPage() {
                 New
               </span>{" "}
               <span className="text-sm font-medium">
-                NeuroSync AI - AI Mock Interviewer
+                NeuroSync
               </span>
               <svg
                 className="ml-2 w-5 h-5"
@@ -66,13 +66,13 @@ function LandingPage() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </a>
-            <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+              <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
               Practice For Interview{" "}
               <span className="text-primary">With AI</span>{" "}
             </h1>
@@ -93,7 +93,7 @@ function LandingPage() {
         <section className="py-8 bg-white z-50 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
           <h2 className="font-bold text-3xl">How it Works?</h2>
           <h2 className="text-md text-gray-500">
-            Give mock interview in just 3 simplar easy step
+            Give a NeuroSync mock interview in just 3 simple easy steps
           </h2>
 
           <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -107,12 +107,12 @@ function LandingPage() {
               {/* <AtomIcon className="h-8 w-8" /> */}
               <GiBrain className="h-8 w-8 text-indigo-700" />
 
-              <h2 className="mt-4 text-xl font-bold text-black">
-                Create Interview with AI
+                <h2 className="mt-4 text-xl font-bold text-black">
+                Create a NeuroSync mock interview with AI
               </h2>
 
               <p className="mt-1 text-sm text-gray-400">
-                You can create mock interviews with AI, by providing you job
+                You can create NeuroSync mock interviews with AI, by providing your job
                 description. The AI will generate a series of questions based on
                 your input.
               </p>

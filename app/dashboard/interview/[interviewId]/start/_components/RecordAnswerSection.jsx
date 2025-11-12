@@ -10,10 +10,11 @@ import webcamlottie from "./../../../../../../public/webcamlottie.json";
 import Lottie from "lottie-react";
 import { toast } from "sonner";
 import { chatSession } from "@/utils/GeminiAIModal";
-import { db } from "@/utils/db";
-import { UserAnswer } from "@/utils/schema";
-import { useUser } from "@clerk/nextjs";
+// import { db } from "@/utils/db";
+// import { UserAnswer } from "@/utils/schema";
+import { useUser } from "@/lib/simpleAuth";
 import moment from "moment";
+import { SaveUserAnswer } from "@/app/_Serveractions";
 
 const RecordAnswerSection = ({
   mockInterviewQuestion,
@@ -85,16 +86,18 @@ const RecordAnswerSection = ({
       const JsonFeedbackResp = JSON.parse(mockJsonResp);
 
       try {
-        const resp = await db.insert(UserAnswer).values({
+        const answerData = {
           mockIdRef: interviewData?.mockId,
           question: mockInterviewQuestion[activeQuestionIndex]?.question,
           correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
           userAns: userAnswer,
           feedback: JsonFeedbackResp?.feedback,
           rating: JsonFeedbackResp?.rating,
-          useEmail: user?.primaryEmailAddress?.emailAddress,
+          userEmail: user?.primaryEmailAddress?.emailAddress,
           createdAt: moment().format("DD-MM-YYYY"),
-        });
+        };
+
+        const resp = await SaveUserAnswer(answerData);
 
         if (resp) {
           toast.success("User Answer Recorded Succefully!!");

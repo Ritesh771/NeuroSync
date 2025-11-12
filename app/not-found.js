@@ -1,13 +1,15 @@
 "use client";
-import Lottie from "lottie-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import notfound from "@/public/notfound.json";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 export default function NotFound() {
   return (
     <div className="grid h-screen place-content-center bg-white px-4">
       <div className="text-center">
-        {/* <h1 className="text-9xl font-black text-gray-200">404</h1> */}
         <Lottie
           animationData={notfound}
           loop={true}

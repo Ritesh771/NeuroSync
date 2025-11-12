@@ -1,6 +1,6 @@
 "use client";
 import { GetInterviewList } from "@/app/_Serveractions";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/simpleAuth";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import InterviewItemCard from "../_components/InterviewItemCard";
@@ -45,7 +45,7 @@ const FavouriteInterviews = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-lg">Favourite Mock Interviews</h2>
+  <h2 className="font-semibold text-lg">Favourite NeuroSync Mock Interviews</h2>
       {loading ? (
         <div className="flex justify-center items-center m-auto h-[50%]">
           <Loading />

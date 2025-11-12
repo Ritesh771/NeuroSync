@@ -1,10 +1,10 @@
 "use client";
 import React, { Suspense, useEffect, useState } from "react";
 import Header from "./_components/Header";
-import { useUser } from "@clerk/nextjs";
-import { db } from "@/utils/db";
-import { UserDetails } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+import { useUser } from "@/lib/simpleAuth";
+// import { db } from "@/utils/db";
+// import { UserDetails } from "@/utils/schema";
+// import { eq } from "drizzle-orm";
 import { UserInfoContext } from "@/context/UserInfoContext";
 import Loading from "./loading.js";
 
@@ -16,17 +16,14 @@ const DashboardLayout = ({ children }) => {
   useEffect(() => {
     const GetUserInfo = async () => {
       try {
-        const result = await db
-          .select()
-          .from(UserDetails)
-          .where(
-            eq(UserDetails?.userEmail, user?.primaryEmailAddress?.emailAddress)
-          );
-
-        // console.log("User Details/Info : ", result[0]);
-        if (result.length > 0) {
-          setUserInfo(result[0]);
-          console.log(result[0]); // Log the result directly
+        const response = await fetch(`/api/user-info?email=${encodeURIComponent(user?.primaryEmailAddress?.emailAddress)}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch user info');
+        }
+        const data = await response.json();
+        if (data.userInfo) {
+          setUserInfo(data.userInfo);
+          console.log(data.userInfo);
         }
       } catch (error) {
         console.error("Error Fetching UserInfo : ", error);

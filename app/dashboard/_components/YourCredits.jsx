@@ -1,7 +1,7 @@
 "use client";
 import { GetInterviewList } from "@/app/_Serveractions";
 import { UserInfoContext } from "@/context/UserInfoContext";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/simpleAuth";
 import { Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, {

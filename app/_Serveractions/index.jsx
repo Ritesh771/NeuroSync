@@ -146,3 +146,31 @@ export const UpdateCreditsUsed = async (email, creditsUsed) => {
     throw error;
   }
 };
+
+export const CreateInterview = async (interviewData) => {
+  try {
+    const result = await db
+      .insert(MOCKInterview)
+      .values(interviewData)
+      .returning({ mockId: MOCKInterview.mockId });
+    console.log("Interview created 🚀", result);
+    return result;
+  } catch (error) {
+    console.error("Error creating interview", error);
+    throw error;
+  }
+};
+
+export const SaveUserAnswer = async (answerData) => {
+  try {
+    const result = await db
+      .insert(UserAnswer)
+      .values(answerData)
+      .returning({ id: UserAnswer.id });
+    console.log("User answer saved 🚀", result);
+    return result;
+  } catch (error) {
+    console.error("Error saving user answer", error);
+    throw error;
+  }
+};

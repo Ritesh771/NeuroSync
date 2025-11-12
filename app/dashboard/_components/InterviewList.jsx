@@ -1,11 +1,12 @@
 "use client";
-import { db } from "@/utils/db";
-import { MOCKInterview } from "@/utils/schema";
-import { useUser } from "@clerk/nextjs";
-import { desc, eq } from "drizzle-orm";
+import { useUser } from "@/lib/simpleAuth";
+// import { db } from "@/utils/db";
+// import { MOCKInterview } from "@/utils/schema";
+// import { desc, eq } from "drizzle-orm";
 import React, { useEffect, useState, useCallback } from "react";
 import InterviewItemCard from "./InterviewItemCard";
 import Loading from "./Loading";
+import NoDataFound from "./NoDataFound";
 
 const InterviewList = () => {
   const [interviewList, setInterviewList] = useState([]);
@@ -17,16 +18,13 @@ const InterviewList = () => {
 
     try {
       setLoading(true);
-      const result = await db
-        .select()
-        .from(MOCKInterview)
-        .where(
-          eq(MOCKInterview.createdBy, user.primaryEmailAddress.emailAddress)
-        )
-        .orderBy(desc(MOCKInterview.id));
-
-      console.log("MOCKInterview 🚀 ", result);
-      setInterviewList(result || []);
+      const response = await fetch(`/api/interviews?email=${encodeURIComponent(user.primaryEmailAddress.emailAddress)}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch interviews');
+      }
+      const data = await response.json();
+      console.log("MOCKInterview 🚀 ", data.interviews);
+      setInterviewList(data.interviews || []);
     } catch (error) {
       console.log("Error Fetching Interview List", error);
     } finally {
@@ -39,7 +37,7 @@ const InterviewList = () => {
   }, [GetInterviewList]);
   return (
     <div>
-      <h2 className="font-semibold text-lg">Previous Mock Interview</h2>
+  <h2 className="font-semibold text-lg">Previous NeuroSync Mock Interviews</h2>
       {loading ? (
         <Loading />
       ) : (

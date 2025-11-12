@@ -1,7 +1,7 @@
 "use client";
-import { db } from "@/utils/db";
-import { MOCKInterview } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+// import { db } from "@/utils/db";
+// import { MOCKInterview } from "@/utils/schema";
+// import { eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import QuestionsSection from "./_components/QuestionsSection";
 import RecordAnswerSection from "./_components/RecordAnswerSection";
@@ -20,12 +20,15 @@ const StartInterview = ({ params }) => {
   // Get Interview Details by mockId/Interview ID
   const GetInterviewDetails = async () => {
     try {
-      const result = await db
-        .select()
-        .from(MOCKInterview)
-        .where(eq(MOCKInterview.mockId, params.interviewId));
+      const response = await fetch(`/api/interview-details?mockId=${params.interviewId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch interview details');
+      }
+      const data = await response.json();
+      const interview = data.interview;
+      setInterviewData(interview);
 
-      const jsonMockResp = JSON.parse(result[0].jsonMockResp);
+      const jsonMockResp = JSON.parse(interview.jsonMockResp);
 
       console.log(jsonMockResp);
       setMockInterviewQuestion(jsonMockResp);

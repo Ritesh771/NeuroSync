@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/simpleAuth";
 import { db } from "@/utils/db";
 import { UserDetails } from "@/utils/schema";
 import moment from "moment";
