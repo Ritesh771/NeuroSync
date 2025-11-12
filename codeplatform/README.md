@@ -2,6 +2,11 @@
 
 The **Live Code Interviewer** is a tool designed for live technical interviews, providing a robust platform that combines real-time code editing, multi-language execution, and a detailed, automated, AI-supported final report.
 
+## 🌐 Demonstrations
+
+- [Interview Recording](https://youtu.be/WA-tuJGg9PI) 
+- [Final Interview Report](https://youtu.be/01Qnqo36DVc)
+
 ## 🔧 Key Features
 
 - **Synchronized Code Editor**: Uses Monaco, the same editor base as VS Code, allowing real-time editing for a smooth collaborative experience.
@@ -18,14 +23,14 @@ The **Live Code Interviewer** is a tool designed for live technical interviews, 
 - **Artificial Intelligence**: Detailed transcription and analysis of interview data for a comprehensive final report.
 
 ## 📸 Screenshots
-<!-- Screenshot images would be displayed here -->
+<img width="600" alt="livecode1" src="https://github.com/user-attachments/assets/c2e884c1-f054-4615-9279-d5f2e7c42637"> <img width="600" alt="livecode" src="https://github.com/user-attachments/assets/17029df0-28b1-4b2f-958d-74058e6e3c19">
 
 ## 🚀 Getting Started
 
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/antoniovini47/live-code-interviewer.git
    cd live-code-interviewer
    ```
 
@@ -77,6 +82,6 @@ At the end of each interview, a final report is automatically generated, contain
 
 ## 👥 Collaborators
 
-- Antonio Vinicius
-- João Magalhães
-- Gustavo Costa
+- [antoniovini47](https://github.com/antoniovini47)
+- [jrmagalhaesz](https://github.com/jrmagalhaesz)
+- [gustabcc](https://github.com/gustabcc)

@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "AI Mock Interviewer",
-  description: "Created by Ritesh",
+  description: "Created by Manish Syal",
 };
 
 export default function RootLayout({ children }) {
