@@ -1,0 +1,39 @@
+.container {
+  overflow: scroll;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.reportHeader {
+  display: flex;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 1rem 1rem;
+  padding: 1rem;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  background-color: #0f0a19;
+  align-items: center;
+  margin-right: rem;
+}
+
+.reportHeaderContent {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.reportHeader input {
+  background-color: #fff;
+  color: #0f0a19;
+  border-radius: 8px;
+  margin: 0 0.5rem 0 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.select {
+  background-color: #fff;
+  color: #0f0a19;
+  border-radius: 8px;
+  margin-left: 0.5rem;
+}
