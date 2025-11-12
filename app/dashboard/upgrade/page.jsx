@@ -27,7 +27,7 @@ const Upgrade = () => {
 
       // store the payment secret key in the database
       await UpdateUserPaymentSecretKey(
-        user?.primaryEmailAddress?.emailAddress,
+        user?.email,
         Payment_SecretKey
       );
 
@@ -36,7 +36,7 @@ const Upgrade = () => {
           title: "12 Credits",
           price: 1,
         },
-        email: user?.primaryEmailAddress?.emailAddress,
+        email: user?.email,
         paymentSecretKey: Payment_SecretKey,
       });
 

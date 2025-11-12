@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,8 +20,8 @@ import { useUser } from "@/lib/simpleAuth";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { CreateInterview, UpdateUserCredits, UpdateCreditsUsed } from "@/app/_Serveractions";
-import AddNew from "@/public/AddNew.json";
-import Lottie from "lottie-react";
+// import AddNew from "@/public/AddNew.json";
+// import Lottie from "lottie-react";
 import { UserInfoContext } from "@/context/UserInfoContext";
 import {
   AlertDialog,
@@ -36,6 +36,18 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const AddNewInterview = () => {
+  const [Lottie, setLottie] = useState(null);
+  const [AddNew, setAddNew] = useState(null);
+
+  useEffect(() => {
+    // Dynamically import Lottie and animation data on client side
+    import('lottie-react').then((module) => {
+      setLottie(() => module.default);
+    });
+    import('@/public/AddNew.json').then((module) => {
+      setAddNew(module.default);
+    });
+  }, []);
   const { userInfo, setUserInfo } = useContext(UserInfoContext);
   const [openDialog, setOpenDialog] = useState();
   const [upgradeDialog, setUpgradeDialog] = useState(false);
@@ -74,7 +86,7 @@ const AddNewInterview = () => {
             jobPosition: jobPosition,
             jobDescription: jobDescription,
             jobExperience: jobExperience,
-            createdBy: user?.primaryEmailAddress?.emailAddress,
+            createdBy: user?.email,
             createdAt: moment().format("DD-MM-YYYY"),
           };
 
@@ -107,7 +119,7 @@ const AddNewInterview = () => {
     if (userInfo && userInfo?.credits > 0) {
       try {
         const newCredits = userInfo?.credits - 2;
-        const email = user?.primaryEmailAddress?.emailAddress;
+        const email = user?.email;
         const res = await UpdateUserCredits(email, newCredits);
         if (res) {
           setUserInfo((prevUserInfo) => ({
@@ -127,7 +139,7 @@ const AddNewInterview = () => {
 
   const updateCreditsUsed = async () => {
     const newUsedCredits = userInfo?.creditsUsed + 2;
-    const email = user?.primaryEmailAddress?.emailAddress;
+    const email = user?.email;
     const res = await UpdateCreditsUsed(email, newUsedCredits);
     if (res) {
       setUserInfo((prevUserInfo) => ({
@@ -151,7 +163,12 @@ const AddNewInterview = () => {
         }}
       >
         <h2 className="flex justify-center items-center font-medium text-lg text-center">
-          <Lottie animationData={AddNew} loop={true} className="h-16" /> Add New
+          {Lottie && AddNew ? (
+            <Lottie animationData={AddNew} loop={true} className="h-16" />
+          ) : (
+            <div className="h-16 w-16 bg-gray-200 rounded animate-pulse"></div>
+          )}
+          Add New
         </h2>
       </div>
       {/* Add new Interview Diaglo */}

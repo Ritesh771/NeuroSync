@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }) => {
   useEffect(() => {
     const GetUserInfo = async () => {
       try {
-        const response = await fetch(`/api/user-info?email=${encodeURIComponent(user?.primaryEmailAddress?.emailAddress)}`);
+        const response = await fetch(`/api/user-info?email=${encodeURIComponent(user?.email)}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user info');
         }

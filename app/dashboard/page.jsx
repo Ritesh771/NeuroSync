@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import AddNewInterview from "./_components/AddNewInterview";
 import InterviewList from "./_components/InterviewList";
 import YourCredits from "./_components/YourCredits";
+import Profile from "./_components/Profile";
 
 const Dashboard = () => {
   return (
@@ -10,6 +12,11 @@ const Dashboard = () => {
       <h2 className="text-gray-500">
         Create and Start your AI Mockup Interview
       </h2>
+
+      {/* Profile Section */}
+      <div className="my-8">
+        <Profile />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-5">
         <AddNewInterview />
@@ -24,3 +31,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';

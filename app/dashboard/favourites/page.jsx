@@ -6,14 +6,26 @@ import { toast } from "sonner";
 import InterviewItemCard from "../_components/InterviewItemCard";
 import Loading from "../_components/Loading"; // Assuming you have a Loading component
 import NoDataFound from "../_components/NoDataFound";
-import Lottie from "lottie-react";
-import Favourite_Astronaut from "@/public/Favourite_Astronaut.json";
+// import Lottie from "lottie-react";
+// import Favourite_Astronaut from "@/public/Favourite_Astronaut.json";
 
 const FavouriteInterviews = () => {
   const [interviewList, setInterviewList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [Lottie, setLottie] = useState(null);
+  const [Favourite_Astronaut, setFavouriteAstronaut] = useState(null);
   const { user } = useUser();
+
+  useEffect(() => {
+    // Dynamically import Lottie and animation data on client side
+    import('lottie-react').then((module) => {
+      setLottie(() => module.default);
+    });
+    import('@/public/Favourite_Astronaut.json').then((module) => {
+      setFavouriteAstronaut(module.default);
+    });
+  }, []);
 
   useEffect(() => {
     if (user) getInterviewList();
@@ -23,7 +35,7 @@ const FavouriteInterviews = () => {
     try {
       setLoading(true);
       const result = await GetInterviewList(
-        user?.primaryEmailAddress?.emailAddress
+        user?.email
       );
 
       if (result) {
@@ -53,11 +65,15 @@ const FavouriteInterviews = () => {
       ) : (
         <>
           <div>
-            <Lottie
-              animationData={Favourite_Astronaut}
-              loop={true}
-              className="h-72 m-auto"
-            />
+            {Lottie && Favourite_Astronaut ? (
+              <Lottie
+                animationData={Favourite_Astronaut}
+                loop={true}
+                className="h-72 m-auto"
+              />
+            ) : (
+              <div className="h-72 w-72 bg-gray-200 rounded animate-pulse m-auto"></div>
+            )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
             {filteredList.length > 0 ? (
@@ -81,3 +97,6 @@ const FavouriteInterviews = () => {
 };
 
 export default FavouriteInterviews;
+
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';

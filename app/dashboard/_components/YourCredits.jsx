@@ -12,7 +12,7 @@ import React, {
   useMemo,
 } from "react";
 import { HiSparkles } from "react-icons/hi2";
-import Lottie from "lottie-react";
+// import Lottie from "lottie-react";
 import loadingSpiner from "@/public/loadingSpiner.json";
 
 const YourCredits = () => {
@@ -21,12 +21,20 @@ const YourCredits = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useUser();
   const router = useRouter();
+  const [Lottie, setLottie] = useState(null);
+
+  useEffect(() => {
+    // Dynamically import Lottie on client side only
+    import('lottie-react').then((module) => {
+      setLottie(() => module.default);
+    });
+  }, []);
 
   const fetchInterviews = useCallback(async () => {
     if (user) {
       try {
         const result = await GetInterviewList(
-          user?.primaryEmailAddress?.emailAddress
+          user?.email
         );
         console.log("❤️❤️❤️❤️", result);
         if (result) {
@@ -72,11 +80,15 @@ const YourCredits = () => {
 
       {loading ? (
         <div className="flex flex-col justify-center items-center mt-3">
-          <Lottie
-            animationData={loadingSpiner}
-            loop={true}
-            className="h-20 w-20 lg:h-32 lg:w-32"
-          />
+          {Lottie ? (
+            <Lottie
+              animationData={loadingSpiner}
+              loop={true}
+              className="h-20 w-20 lg:h-32 lg:w-32"
+            />
+          ) : (
+            <div className="h-20 w-20 lg:h-32 lg:w-32 bg-gray-200 rounded animate-pulse"></div>
+          )}
           {/* <h4 className="text-xs lg:text-sm font-bold">
             Loading Credits details....
           </h4> */}

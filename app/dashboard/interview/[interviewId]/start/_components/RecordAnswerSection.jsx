@@ -93,7 +93,7 @@ const RecordAnswerSection = ({
           userAns: userAnswer,
           feedback: JsonFeedbackResp?.feedback,
           rating: JsonFeedbackResp?.rating,
-          userEmail: user?.primaryEmailAddress?.emailAddress,
+          userEmail: user?.email,
           createdAt: moment().format("DD-MM-YYYY"),
         };
 

@@ -14,11 +14,11 @@ const InterviewList = () => {
   const { user } = useUser();
 
   const GetInterviewList = useCallback(async () => {
-    if (!user) return;
+    if (!user || !user.email) return;
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/interviews?email=${encodeURIComponent(user.primaryEmailAddress.emailAddress)}`);
+      const response = await fetch(`/api/interviews?email=${encodeURIComponent(user.email)}`);
       if (!response.ok) {
         throw new Error('Failed to fetch interviews');
       }

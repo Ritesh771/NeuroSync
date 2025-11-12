@@ -1,8 +1,8 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import Lottie from "lottie-react";
-import PaymentSuccefull from "@/public/PaymentSuccefull.json";
-import PaymentCheck from "@/public/PaymentCheck.json";
+// import Lottie from "lottie-react";
+// import PaymentSuccefull from "@/public/PaymentSuccefull.json";
+// import PaymentCheck from "@/public/PaymentCheck.json";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -19,8 +19,24 @@ const SuccessPage = () => {
   const searchParams = useSearchParams();
   const paymentkeyQueryParam = searchParams.get("session_id");
   const [loading, setLoading] = useState(true);
+  const [Lottie, setLottie] = useState(null);
+  const [PaymentSuccefull, setPaymentSuccefull] = useState(null);
+  const [PaymentCheck, setPaymentCheck] = useState(null);
   const { userInfo, setUserInfo } = useContext(UserInfoContext);
   const { user } = useUser();
+
+  useEffect(() => {
+    // Dynamically import Lottie and animation data on client side
+    import('lottie-react').then((module) => {
+      setLottie(() => module.default);
+    });
+    import('@/public/PaymentSuccefull.json').then((module) => {
+      setPaymentSuccefull(module.default);
+    });
+    import('@/public/PaymentCheck.json').then((module) => {
+      setPaymentCheck(module.default);
+    });
+  }, []);
 
   useEffect(() => {
     if (paymentkeyQueryParam && userInfo) {
@@ -37,7 +53,7 @@ const SuccessPage = () => {
   const Matchpaymentsecretkey = async () => {
     try {
       const result = await MatchUserPaymentSecretKey(
-        user?.primaryEmailAddress?.emailAddress,
+        user?.email,
         paymentkeyQueryParam
       );
       if (result) {
@@ -55,7 +71,7 @@ const SuccessPage = () => {
   const DeletePaymentSecretKeyFromDB = async () => {
     try {
       const result = await RemoveUserPaymentSecretKey(
-        user?.primaryEmailAddress?.emailAddress
+        user?.email
       );
       if (result) {
         console.log("User payment secret key deleted 🚀", result);
@@ -72,7 +88,7 @@ const SuccessPage = () => {
     try {
       const currentCredits = userInfo?.credits || 0;
       const newCredits = currentCredits + 12;
-      const email = user?.primaryEmailAddress?.emailAddress;
+      const email = user?.email;
       let newTotalSpent = userInfo?.totalSpent || 0;
       newTotalSpent += 1;
 
@@ -114,17 +130,25 @@ const SuccessPage = () => {
       </div>
       <div className="flex flex-col p-0">
         <div className="flex flex-col justify-center items-center -mt-12">
-          <Lottie
-            animationData={PaymentSuccefull}
-            loop={true}
-            className="h-screen -mt-32 justify-center items-center"
-          />
+          {Lottie && PaymentSuccefull ? (
+            <Lottie
+              animationData={PaymentSuccefull}
+              loop={true}
+              className="h-screen -mt-32 justify-center items-center"
+            />
+          ) : (
+            <div className="h-screen w-screen bg-gray-200 rounded animate-pulse -mt-32"></div>
+          )}
 
-          <Lottie
-            animationData={PaymentCheck}
-            loop={true}
-            className=" flex h-52 justify-center items-center -mt-52"
-          />
+          {Lottie && PaymentCheck ? (
+            <Lottie
+              animationData={PaymentCheck}
+              loop={true}
+              className=" flex h-52 justify-center items-center -mt-52"
+            />
+          ) : (
+            <div className="h-52 w-52 bg-gray-200 rounded animate-pulse -mt-52"></div>
+          )}
 
           <h2 className="font-bold text-2xl text-indigo-700">
             ⚡ Payment Succefull ⚡
@@ -139,3 +163,6 @@ const SuccessPage = () => {
 };
 
 export default SuccessPage;
+
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';

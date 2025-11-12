@@ -5,7 +5,29 @@ import {
   serial,
   text,
   varchar,
+  timestamp,
 } from "drizzle-orm/pg-core";
+
+export const User = pgTable("users", {
+  id: serial("id").primaryKey(),
+  email: varchar("email").unique().notNull(),
+  passwordHash: varchar("password_hash").notNull(),
+  firstName: varchar("first_name").notNull(),
+  lastName: varchar("last_name").notNull(),
+  isFirstLogin: boolean("is_first_login").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const ResumeData = pgTable("resume_data", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => User.id).notNull(),
+  resumeText: text("resume_text").notNull(),
+  skills: text("skills"),
+  experience: text("experience"),
+  education: text("education"),
+  projects: text("projects"),
+  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
+});
 
 export const MOCKInterview = pgTable("mockInterview", {
   id: serial("id").primaryKey(),
