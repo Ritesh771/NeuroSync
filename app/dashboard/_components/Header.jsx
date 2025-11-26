@@ -13,9 +13,8 @@ const Header = () => {
 
   return (
     <div
-      className={`flex p-4 items-center bg-secondary justify-between shadow-sm relative z-20 ${
-        path == "/dashboard/success" && "hidden"
-      }`}
+      className={`flex p-4 items-center bg-secondary justify-between shadow-sm relative z-20 ${path == "/dashboard/success" && "hidden"
+        }`}
     >
       <Image
         src="/logo2.png"
@@ -30,28 +29,40 @@ const Header = () => {
       <ul className={`hidden md:flex gap-6`}>
         <li
           onClick={() => router.replace("/dashboard")}
-          className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${
-            path == "/dashboard" && "text-primary font-extrabold"
-          }`}
+          className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/dashboard" && "text-primary font-extrabold"
+            }`}
         >
           Dashboard
         </li>
         <li
           onClick={() => router.replace("/dashboard/favourites")}
-          className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${
-            path == "/dashboard/favourites" && "text-primary font-extrabold"
-          }`}
+          className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/dashboard/favourites" && "text-primary font-extrabold"
+            }`}
         >
           Favourites
         </li>
         <li
+          onClick={() => router.replace("/dashboard/analytics")}
+          className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/dashboard/analytics" && "text-primary font-extrabold"
+            }`}
+        >
+          Analytics
+        </li>
+        <li
+          onClick={() => router.replace("/code-editor")}
+          className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/code-editor" && "text-primary font-extrabold"
+            }`}
+        >
+          Code Editor
+        </li>
+        {/* <li
           onClick={() => router.replace("/dashboard/upgrade")}
           className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${
             path == "/dashboard/upgrade" && "text-primary font-extrabold"
           }`}
         >
           Upgrade
-        </li>
+        </li> */} {/* Commented out for unlimited credits */}
       </ul>
 
       {/* Mobile Navbar section from here */}
@@ -69,9 +80,8 @@ const Header = () => {
       </div>
 
       <div
-        className={`absolute top-16 left-0 w-[30%] bg-secondary md:hidden transition-transform duration-300 rounded-lg ${
-          menuIcon ? "transform translate-x-0" : "transform -translate-x-full"
-        }`}
+        className={`absolute top-16 left-0 w-[30%] bg-secondary md:hidden transition-transform duration-300 rounded-lg ${menuIcon ? "transform translate-x-0" : "transform -translate-x-full"
+          }`}
       >
         <ul className="flex flex-col items-center gap-6 py-4">
           <li
@@ -79,9 +89,8 @@ const Header = () => {
               router.replace("/dashboard");
               setMenuIcon(false);
             }}
-            className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${
-              path == "/dashboard" && "text-primary font-extrabold"
-            }`}
+            className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/dashboard" && "text-primary font-extrabold"
+              }`}
           >
             Dashboard
           </li>
@@ -90,13 +99,32 @@ const Header = () => {
               router.replace("/dashboard/favourites");
               setMenuIcon(false);
             }}
-            className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${
-              path == "/dashboard/favourites" && "text-primary font-extrabold"
-            }`}
+            className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/dashboard/favourites" && "text-primary font-extrabold"
+              }`}
           >
             Favourites
           </li>
           <li
+            onClick={() => {
+              router.replace("/dashboard/analytics");
+              setMenuIcon(false);
+            }}
+            className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/dashboard/analytics" && "text-primary font-extrabold"
+              }`}
+          >
+            Analytics
+          </li>
+          <li
+            onClick={() => {
+              router.replace("/code-editor");
+              setMenuIcon(false);
+            }}
+            className={`font-medium hover:text-primary hover:font-extrabold transition-all cursor-pointer ${path == "/code-editor" && "text-primary font-extrabold"
+              }`}
+          >
+            Code Editor
+          </li>
+          {/* <li
             onClick={() => {
               router.replace("/dashboard/upgrade");
               setMenuIcon(false);
@@ -106,7 +134,7 @@ const Header = () => {
             }`}
           >
             Upgrade
-          </li>
+          </li> */} {/* Commented out for unlimited credits */}
         </ul>
       </div>
 

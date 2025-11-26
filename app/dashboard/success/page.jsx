@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   MatchUserPaymentSecretKey,
   RemoveUserPaymentSecretKey,
-  updateCreditsAndTotalSpent,
+  // updateCreditsAndTotalSpent, // Commented out for unlimited credits
 } from "@/app/_Serveractions";
 import { useUser } from "@/lib/simpleAuth";
 import { UserInfoContext } from "@/context/UserInfoContext";
@@ -75,7 +75,7 @@ const SuccessPage = () => {
       );
       if (result) {
         console.log("User payment secret key deleted 🚀", result);
-        await AddCreditsOnUserAccount(); //after deleting payment key Add 12 credits to the user's account
+        // await AddCreditsOnUserAccount(); // Commented out for unlimited credits
       } else {
         console.log("User payment secret key not deleted 🚀", result);
       }
@@ -84,39 +84,39 @@ const SuccessPage = () => {
     }
   };
 
-  const AddCreditsOnUserAccount = async () => {
-    try {
-      const currentCredits = userInfo?.credits || 0;
-      const newCredits = currentCredits + 12;
-      const email = user?.email;
-      let newTotalSpent = userInfo?.totalSpent || 0;
-      newTotalSpent += 1;
+  // const AddCreditsOnUserAccount = async () => {
+  //   try {
+  //     const currentCredits = userInfo?.credits || 0;
+  //     const newCredits = currentCredits + 12;
+  //     const email = user?.email;
+  //     let newTotalSpent = userInfo?.totalSpent || 0;
+  //     newTotalSpent += 1;
 
-      // if (!isNaN(newTotalSpent) && typeof newTotalSpent === "number") {
-      //   newTotalSpent += 1;
-      // }
+  //     // if (!isNaN(newTotalSpent) && typeof newTotalSpent === "number") {
+  //     //   newTotalSpent += 1;
+  //     // }
 
-      if (!isNaN(newCredits) && typeof newCredits === "number") {
-        const creditsUpdated = await updateCreditsAndTotalSpent(
-          email,
-          newCredits,
-          newTotalSpent
-        );
-        if (creditsUpdated) {
-          // setUserInfo((prevUserInfo) => ({
-          //   ...prevUserInfo,
-          //   credits: newCredits,
-          //   totalSpent: newTotalSpent,
-          // }));
-          console.log("User credits updated: 🎉🎉🎉", newCredits);
-        }
-      } else {
-        console.log("Invalid credits value:", newCredits);
-      }
-    } catch (error) {
-      console.error("Error updating user credits", error);
-    }
-  };
+  //     if (!isNaN(newCredits) && typeof newCredits === "number") {
+  //       const creditsUpdated = await updateCreditsAndTotalSpent(
+  //         email,
+  //         newCredits,
+  //         newTotalSpent
+  //       );
+  //       if (creditsUpdated) {
+  //         // setUserInfo((prevUserInfo) => ({
+  //         //   ...prevUserInfo,
+  //         //   credits: newCredits,
+  //         //   totalSpent: newTotalSpent,
+  //         // }));
+  //         console.log("User credits updated: 🎉🎉🎉", newCredits);
+  //       }
+  //     } else {
+  //       console.log("Invalid credits value:", newCredits);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating user credits", error);
+  //   }
+  // };
 
   return (
     <>

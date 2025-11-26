@@ -1,8 +1,10 @@
-/** @type { import("drizzle-kit").Config } */
-export default {
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
   schema: "./utils/schema.js",
-  dialect: "postgresql",
+  out: "./drizzle",
+  dialect: "sqlite",
   dbCredentials: {
-    url: process.env.DRIZZLE_DB_URL,
+    url: "./neurosync.db",
   },
-};
+});

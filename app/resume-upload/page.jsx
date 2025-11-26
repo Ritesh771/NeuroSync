@@ -37,6 +37,7 @@ export default function ResumeUploadPage() {
     setError("");
 
     try {
+      console.log("Starting upload for file:", file.name, "size:", file.size);
       const formData = new FormData();
       formData.append("resume", file);
 
@@ -45,11 +46,24 @@ export default function ResumeUploadPage() {
         body: formData,
       });
 
+      console.log("Upload response status:", response.status);
+      const responseText = await response.text();
+      console.log("Upload response text:", responseText);
+
       if (response.ok) {
+        const data = JSON.parse(responseText);
+        console.log("Upload successful:", data);
+        alert(`Upload successful! Extracted data: ${JSON.stringify(data.extractedData, null, 2)}`);
         router.push("/dashboard");
       } else {
-        const data = await response.json();
-        setError(data.error || "Upload failed");
+        try {
+          const data = JSON.parse(responseText);
+          console.log("Upload failed:", data);
+          setError(data.error || "Upload failed");
+        } catch (e) {
+          console.log("Failed to parse error response:", responseText);
+          setError("Upload failed - check console for details");
+        }
       }
     } catch (err) {
       setError("An error occurred. Please try again.");

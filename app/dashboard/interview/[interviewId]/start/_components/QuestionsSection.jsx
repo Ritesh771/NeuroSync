@@ -1,7 +1,7 @@
 import { Lightbulb, Volume2 } from "lucide-react";
 import React from "react";
 
-const QuestionsSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
+const QuestionsSection = ({ mockInterviewQuestion, activeQuestionIndex, currentRound }) => {
   const textToSpeach = (text) => {
     if ("speechSynthesis" in window) {
       const speech = new SpeechSynthesisUtterance(text);
@@ -10,6 +10,20 @@ const QuestionsSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
       alert("Sorry, Your Browser does not support text to speech.");
     }
   };
+
+  const getRoundInstructions = () => {
+    switch (currentRound) {
+      case 1:
+        return "Focus on analytical thinking, decision-making, and situational judgment. Take your time to think through each scenario.";
+      case 2:
+        return "Demonstrate your technical skills and coding knowledge. For coding questions, you can use the code editor below.";
+      case 3:
+        return "Show your communication skills and confidence. Speak clearly and structure your responses well.";
+      default:
+        return "Answer thoughtfully and demonstrate your skills.";
+    }
+  };
+
   return (
     mockInterviewQuestion && (
       <div className="p-5 border rounded-lg my-10">
@@ -42,7 +56,10 @@ const QuestionsSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
         <div className="border rounded-lg p-5 bg-blue-100 mt-20">
           <h2 className="flex gap-2 items-center text-primary">
             <Lightbulb />
-            <strong>Note:</strong>
+            <strong>Round {currentRound} Instructions:</strong>
+          </h2>
+          <h2 className="text-sm text-primary my-2">
+            {getRoundInstructions()}
           </h2>
           <h2 className="text-sm text-primary my-2">
             Click on Record Answer when you want to answer the question. At the

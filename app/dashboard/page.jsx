@@ -21,7 +21,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-5">
         <AddNewInterview />
         <div></div>
-        <YourCredits />
+        {/* <YourCredits /> */} {/* Commented out to make credits unlimited */}
       </div>
 
       {/* List of Interviews */}

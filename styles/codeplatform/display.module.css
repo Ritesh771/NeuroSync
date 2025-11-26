@@ -1,0 +1,6 @@
+.display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}

@@ -1,7 +1,4 @@
 import { NextResponse } from "next/server";
-import { db } from "./utils/db";
-import { User } from "./utils/schema";
-import { eq } from "drizzle-orm";
 
 // Only protect routes that should be authenticated
 const PROTECTED_ROUTES = ["/dashboard", "/resume-upload"];
@@ -13,7 +10,10 @@ function isProtectedPath(pathname) {
 // Middleware that validates session token from cookie
 export async function middleware(req) {
   // Skip authentication in development for convenience
-  if (process.env.NODE_ENV === "development") return NextResponse.next();
+  if (process.env.NODE_ENV === "development") {
+    console.log("Development mode - skipping auth middleware");
+    return NextResponse.next();
+  }
 
   const { pathname } = req.nextUrl;
 
@@ -39,8 +39,13 @@ export async function middleware(req) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }
 
-  // Check if user exists
+  // Dynamically import database modules only when needed
   try {
+    const { db } = await import("./utils/db");
+    const { User } = await import("./utils/schema");
+    const { eq } = await import("drizzle-orm");
+
+    // Check if user exists
     const users = await db.select().from(User).where(eq(User.id, userId)).limit(1);
     if (users.length === 0) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
@@ -57,3 +62,6 @@ export const config = {
   // Match app routes (excluding _next and files) and API routes
   matcher: ["/((?!.*\\..*|_next).*)", "/(api|trpc)(.*)"],
 };
+
+// Force Node.js runtime for middleware since we need database access
+export const runtime = 'nodejs';

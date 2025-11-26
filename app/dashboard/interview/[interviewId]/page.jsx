@@ -57,15 +57,20 @@ const Interview = ({ params }) => {
           <div className="p-5 border rounded-lg border-yellow-300 bg-yellow-100">
             <h2 className="flex gap-2 items-center text-yellow-600">
               <Lightbulb />
-              <strong>Information</strong>
+              <strong>Important Information</strong>
             </h2>
             <h2 className="mt-3 text-yellow-500">
-              Enable Video Web Cam and Microphone to Start your Al Generated
-              NeuroSync Mock Interview, It Has 5 questions which you can answer and at the
-              last you will get the report on the basis of your answer. NOTE: We
-              never record/store your video due to users privacy. You can
-              disable Web cam access at any time by clicking the icon located
-              before the WebURL.
+              This is a comprehensive <strong>3-Round Interview</strong> with specialized AI agents:
+              <br /><br />
+              🟦 <strong>Round 1:</strong> Hiring Manager - Problem-Solving & Analytical Thinking (5 questions)
+              <br />
+              🟩 <strong>Round 2:</strong> Technical Recruiter - Coding & Technical Skills (5 questions)
+              <br />
+              🟧 <strong>Round 3:</strong> Panel Lead - Communication & Soft Skills (5 questions)
+              <br /><br />
+              Each round is evaluated by a different AI agent. You must complete all rounds to get your final report.
+              <br /><br />
+              <strong>Enable Video Web Cam and Microphone to Start your AI Mock Interview.</strong> We never record/store your video due to privacy.
             </h2>
           </div>
         </div>

@@ -75,7 +75,7 @@ const Profile = () => {
         <div>
           <h4 className="font-medium text-gray-700 mb-2">Skills</h4>
           <div className="flex flex-wrap gap-2">
-            {resumeData.skills && Array.isArray(resumeData.skills) && resumeData.skills.length > 0 ? (
+            {resumeData.skills && Array.isArray(resumeData.skills) && resumeData.skills.length > 0 && !resumeData.skills.includes("Extracted from resume") ? (
               resumeData.skills.map((skill, index) => (
                 <span
                   key={index}
@@ -93,7 +93,7 @@ const Profile = () => {
         <div>
           <h4 className="font-medium text-gray-700 mb-2">Experience</h4>
           <p className="text-gray-600">
-            {resumeData.experience && resumeData.experience !== "No work experience information found" && resumeData.experience.trim()
+            {resumeData.experience && resumeData.experience !== "Work experience extracted from resume" && resumeData.experience.trim()
               ? resumeData.experience
               : "No experience extracted. Make sure your resume has a clear \"Experience\" or \"Work Experience\" section."
             }
@@ -103,7 +103,7 @@ const Profile = () => {
         <div>
           <h4 className="font-medium text-gray-700 mb-2">Education</h4>
           <p className="text-gray-600">
-            {resumeData.education && resumeData.education !== "No education information found" && resumeData.education.trim()
+            {resumeData.education && resumeData.education !== "Education extracted from resume" && resumeData.education.trim()
               ? resumeData.education
               : "No education extracted. Make sure your resume has a clear \"Education\" section."
             }
@@ -113,7 +113,7 @@ const Profile = () => {
         <div>
           <h4 className="font-medium text-gray-700 mb-2">Projects</h4>
           <p className="text-gray-600">
-            {resumeData.projects && resumeData.projects !== "No projects information found" && resumeData.projects.trim()
+            {resumeData.projects && resumeData.projects !== "Projects extracted from resume" && resumeData.projects.trim()
               ? resumeData.projects
               : "No projects extracted. Make sure your resume has a clear \"Projects\" section."
             }

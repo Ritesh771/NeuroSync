@@ -102,38 +102,40 @@ const InterviewItemCard = ({ interview, refreshCallBack }) => {
           Start
         </Button>
 
-        <AlertDialog>
-          <AlertDialogTrigger className="flex justify-center lg:justify-end">
-            <Button
-              disabled={loading}
-              className="text-red-500"
-              size="sm"
-              variant="outline"
-            >
-              {loading ? (
-                <LoaderCircle className="text-red-500 animate-spin" />
-              ) : (
-                <Trash2 />
-              )}
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                Interview from your account and remove your data from our
-                servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDelete} className="bg-red-500">
-                Continue
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div className="flex justify-center lg:justify-end">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                disabled={loading}
+                className="text-red-500"
+                size="sm"
+                variant="outline"
+              >
+                {loading ? (
+                  <LoaderCircle className="text-red-500 animate-spin" />
+                ) : (
+                  <Trash2 />
+                )}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete your
+                  Interview from your account and remove your data from our
+                  servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete} className="bg-red-500">
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
     </div>
   );
